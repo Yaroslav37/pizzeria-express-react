@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: pizzeria
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5434:5432" # Порт базы данных PostgreSQL
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Монтирование тома для сохранения данных
+
+volumes:
+  postgres_data:
