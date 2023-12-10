@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.form {
+  padding: 16px;
+  max-width: 500px;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+.button {
+  background-color: #4caf50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.oauthButton {
+  height: 80px;
+  width: 80px;
+  padding: 5px;
+}
+
+.oauthButton img {
+  height: 100%;
+  width: 100%;
+  margin-bottom: 6px;
+}
+
+.oauthButton + .oauthButton {
+  margin-left: 1rem;
+}
+
+.oauthContainer {
+  display: flex;
+  justify-content: space-between;
+}
