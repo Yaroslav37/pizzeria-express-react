@@ -9,6 +9,8 @@ exports.up = function (knex) {
         table.string('google_id');
         // Добавьте другие колонки...
     });
+
+    
 };
 
 exports.down = function (knex) {

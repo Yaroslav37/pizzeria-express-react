@@ -4,12 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import LoginForm from './LoginForm';
+import Products  from './pages/Products'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
-    <LoginForm />
+    {/* <App /> */}
+    <Products/>
+    {/* <LoginForm /> */}
   </React.StrictMode>
 );
 

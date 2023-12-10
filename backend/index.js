@@ -4,6 +4,7 @@ const app = express()
 const db = require('./queries')
 const port = 3002
 
+app.use(passport.session());
 app.use(bodyParser.json())
 app.use(
   bodyParser.urlencoded({
