@@ -9,8 +9,14 @@ const login = async ({ email, password }) => {
   return response;
 };
 
+const products = async (params = {}) => {
+  const response = await apiClient.get("/products", { params });
+  return response;
+};
+
 const client = {
   login,
+  products,
 };
 
 export default client;

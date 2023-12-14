@@ -1,12 +1,19 @@
 const database = require("../database");
 
-const getAllSortedById = async () => {
-  const products = await database.query(
-    "select * from products order by ID asc"
-  );
-  return products.rows;
+const getAll = async (search = "", sortDirection = "ASC", sortField = "id") => {
+  if (search) {
+    const products = await database.query(
+      `SELECT * FROM products WHERE description ILIKE '%${search}%' or product_name ILIKE '%${search}%' ORDER BY ${sortField} ${sortDirection}`
+    );
+    return products.rows;
+  } else {
+    const products = await database.query(
+      `SELECT * FROM products ORDER BY ${sortField} ${sortDirection}`
+    );
+    return products.rows;
+  }
 };
 
 module.exports = {
-  getAllSortedById,
+  getAll,
 };
