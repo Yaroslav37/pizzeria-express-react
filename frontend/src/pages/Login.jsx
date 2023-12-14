@@ -57,6 +57,10 @@ function Login() {
     window.location.href = "http://localhost:3001/auth/meta";
   };
 
+  const handleGoogleLogin = () => {
+    window.location.href = "http://localhost:3001/auth/google";
+  };
+
   return (
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleSubmit}>
@@ -85,7 +89,7 @@ function Login() {
         </button>
       </form>
       <div className={styles.oauthContainer}>
-        <button className={styles.oauthButton}>
+        <button className={styles.oauthButton} onClick={handleGoogleLogin}>
           <img src={googleIcon} alt="google icon" />
           <span>Login with Google</span>
         </button>

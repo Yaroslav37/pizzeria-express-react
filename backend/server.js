@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const passport = require("passport");
 const FacebookStrategy = require("passport-facebook").Strategy;
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const jwt = require("jsonwebtoken");
 
 const productsRouter = require("./api/products");
@@ -87,12 +88,44 @@ passport.use(
   )
 );
 
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: process.env.GOOGLE_REDIRECT_URI,
+    },
+    async function (_accessToken, _refreshToken, profile, done) {
+      const user = await UsersService.getByGoogleOrCreate(profile.id, profile);
+      const userData = {
+        id: user.id,
+        name: user.name,
+        role: user.role,
+      };
+      done(null, jwt.sign(userData, process.env.JWT_SECRET));
+    }
+  )
+);
+
 app.get("/auth/meta", passport.authenticate("facebook"));
 
 app.get(
   "/auth/meta/callback",
   passport.authenticate("facebook", { session: false }),
   (req, res) => {
-    res.redirect(`http://localhost:3000/auth?jwt=${req.user}`);
+    res.redirect(`${process.env.FRONTEND_URL}/auth?jwt=${req.user}`);
+  }
+);
+
+app.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { session: false }),
+  function (req, res) {
+    res.redirect(`${process.env.FRONTEND_URL}/auth?jwt=${req.user}`);
   }
 );
