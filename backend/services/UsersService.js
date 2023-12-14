@@ -59,8 +59,17 @@ const getByEmail = async (email) => {
   return null;
 };
 
+const getAllSortedBy = async (sortBy = "id", sortDirection = "ASC") => {
+  const users = await database.query(
+    `SELECT * FROM users ORDER BY ${sortBy} ${sortDirection}`
+  );
+
+  return users.rows;
+};
+
 module.exports = {
   getByFacebookOrCreate,
   getByEmail,
   getByGoogleOrCreate,
+  getAllSortedBy,
 };

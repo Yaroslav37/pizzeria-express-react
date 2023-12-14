@@ -9,6 +9,7 @@ exports.up = function (knex) {
     table.string("role").notNullable();
     table.string("fb_id");
     table.string("google_id");
+    table.timestamps(true, true);
     // Добавьте другие колонки...
   });
 };

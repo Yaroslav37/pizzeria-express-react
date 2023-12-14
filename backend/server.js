@@ -9,6 +9,8 @@ const FacebookStrategy = require("passport-facebook").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 const productsRouter = require("./api/products");
+const usersRouter = require("./api/users");
+const ordersRouter = require("./api/orders");
 const loginRouter = require("./api/login");
 
 const UsersService = require("./services/UsersService");
@@ -60,6 +62,8 @@ app.use(clientErrorHandler);
 app.use(errorHandler);
 
 app.use("/products", productsRouter);
+app.use("/users", usersRouter);
+app.use("/orders", ordersRouter);
 app.use("/login", loginRouter);
 
 // TASK: 2. Login with Facebook

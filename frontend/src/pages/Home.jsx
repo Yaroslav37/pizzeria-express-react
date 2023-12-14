@@ -7,6 +7,7 @@ const MINSK_LOCATION = {
   longitude: 27.559,
 };
 
+// TASK 9.1 - Class component
 class Home extends Component {
   state = {
     weatherLoaded: false,

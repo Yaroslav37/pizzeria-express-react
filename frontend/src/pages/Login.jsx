@@ -10,6 +10,7 @@ import { UserContext } from "../contexts/UserContext";
 import { RouterContext } from "../lib/Router";
 
 // TASK: 2. Login UI
+// TASK: 9.1 - Functional component
 function Login() {
   // TASK: 9.5, 9.6 - Work with state and one hook
   const [email, setEmail] = useState("");
