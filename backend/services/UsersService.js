@@ -23,6 +23,19 @@ const getByFacebookOrCreate = async (facebookId, facebookProfile) => {
   return newUser.rows[0];
 };
 
+const getByEmail = async (email) => {
+  const user = await database.query("SELECT * FROM users WHERE email = $1", [
+    email,
+  ]);
+
+  if (user.rows.length) {
+    return user.rows[0];
+  }
+
+  return null;
+};
+
 module.exports = {
   getByFacebookOrCreate,
+  getByEmail,
 };

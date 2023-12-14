@@ -1,14 +1,26 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 import styles from "./Login.module.css";
 
 import googleIcon from "../icons/google.png";
 import metaIcon from "../icons/meta.png";
+import { UserContext } from "../contexts/UserContext";
+import { RouterContext } from "../lib/Router";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const { isLoggedIn } = useContext(UserContext);
+  const { onNavigate } = useContext(RouterContext);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      toast.warning("You are already logged in!");
+      onNavigate("/");
+    }
+  });
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);

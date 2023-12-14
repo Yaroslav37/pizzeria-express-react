@@ -1,11 +1,11 @@
-const express = require('express')
-const router = express.Router()
-const database = require('../database')
+const express = require("express");
+const router = express.Router();
+const ProductsService = require("../services/ProductsService");
 
-router.get('/', async (req, res) => {
-  const products = await database.query('select * from products order by ID asc')
+router.get("/", async (req, res) => {
+  const products = await ProductsService.getAllSortedById();
 
   res.status(200).json(products.rows);
-})
+});
 
-module.exports = router
+module.exports = router;
