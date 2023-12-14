@@ -3,6 +3,7 @@ import { RouterContext } from "../lib/Router";
 import Login from "./Login";
 import Products from "./Products";
 import Auth from "./Auth";
+import Home from "./Home";
 
 const Root = () => {
   const { currentPath } = useContext(RouterContext);
@@ -20,7 +21,7 @@ const Root = () => {
   }
 
   if (currentPath === "/") {
-    return <div>Home</div>;
+    return <Home />;
   }
 
   return <div>Not found</div>;

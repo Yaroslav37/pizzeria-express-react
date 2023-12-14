@@ -4,6 +4,7 @@ import { UserContext } from "../contexts/UserContext";
 import { RouterContext } from "../lib/Router";
 import { toast } from "react-toastify";
 
+// TASK: 9.1 - Arrow function component
 const Auth = () => {
   const { isLoggedIn, updateJwtToken } = useContext(UserContext);
   const { onNavigate } = useContext(RouterContext);

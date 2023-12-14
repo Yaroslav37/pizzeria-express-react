@@ -62,6 +62,7 @@ app.use(errorHandler);
 app.use("/products", productsRouter);
 app.use("/login", loginRouter);
 
+// TASK: 2. Login with Facebook
 passport.use(
   new FacebookStrategy(
     {
@@ -80,6 +81,17 @@ passport.use(
   )
 );
 
+app.get("/auth/meta", passport.authenticate("facebook"));
+
+app.get(
+  "/auth/meta/callback",
+  passport.authenticate("facebook", { session: false }),
+  (req, res) => {
+    res.redirect(`${process.env.FRONTEND_URL}/auth?jwt=${req.user}`);
+  }
+);
+
+// TASK: 2. Login with Google
 passport.use(
   new GoogleStrategy(
     {
@@ -92,16 +104,6 @@ passport.use(
       done(null, createJwtToken(user));
     }
   )
-);
-
-app.get("/auth/meta", passport.authenticate("facebook"));
-
-app.get(
-  "/auth/meta/callback",
-  passport.authenticate("facebook", { session: false }),
-  (req, res) => {
-    res.redirect(`${process.env.FRONTEND_URL}/auth?jwt=${req.user}`);
-  }
 );
 
 app.get(

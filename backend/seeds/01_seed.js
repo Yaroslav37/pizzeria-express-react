@@ -1,4 +1,4 @@
-// Ваш файл сида, например, seed_data.js
+// TASK 5: Database seeding
 exports.seed = async function (knex) {
   function products_seed() {
     return knex("products")
@@ -143,6 +143,5 @@ exports.seed = async function (knex) {
   }
   await knex("order_lines").del();
   await knex("orders").del();
-  return users_seed()
-  .then(products_seed);
+  return users_seed().then(products_seed);
 };

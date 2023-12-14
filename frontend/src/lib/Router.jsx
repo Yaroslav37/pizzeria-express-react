@@ -13,7 +13,7 @@ const RouterProvider = ({ children }) => {
   const onLinkClick = useCallback(
     (event) => {
       event.preventDefault();
-      onNavigate(event.target.href);
+      onNavigate(new URL(event.target.href).pathname);
     },
     [onNavigate]
   );

@@ -9,7 +9,9 @@ import metaIcon from "../icons/meta.png";
 import { UserContext } from "../contexts/UserContext";
 import { RouterContext } from "../lib/Router";
 
+// TASK: 2. Login UI
 function Login() {
+  // TASK: 9.5, 9.6 - Work with state and one hook
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -34,6 +36,7 @@ function Login() {
     setError(null);
   };
 
+  // TASK: 11 - Frontend Validation
   const validateForm = useCallback((email, password) => {
     if (!email) {
       setError("Email is required");
@@ -65,6 +68,7 @@ function Login() {
     }
 
     try {
+      setLoading(true);
       const { data } = await apiClient.login({ email, password });
       updateJwtToken(data.jwt);
       toast.success("You are now logged in!");
@@ -73,6 +77,8 @@ function Login() {
       const response = e.response;
       const { error } = response.data;
       setError(error);
+    } finally {
+      setLoading(false);
     }
     setLoading(false);
     // if (response)
@@ -105,6 +111,7 @@ function Login() {
 
   return (
     <div className={styles.container}>
+      {/* TASK: 9.4 - event handler handleSubmit */}
       <form className={styles.form} onSubmit={handleSubmit}>
         <label>
           Email:
@@ -126,16 +133,18 @@ function Login() {
             value={password}
           />
         </label>
-        <button type="submit" className={styles.button}>
-          Login
+        <button type="submit" className={styles.button} disabled={loading}>
+          {loading ? "Loading..." : "Login"}
         </button>
         {error ? <div className={styles.error}>{error}</div> : null}
       </form>
       <div className={styles.oauthContainer}>
+        {/* TASK: 9.4 - event handler handleGoogleLogin */}
         <button className={styles.oauthButton} onClick={handleGoogleLogin}>
           <img src={googleIcon} alt="google icon" />
           <span>Login with Google</span>
         </button>
+        {/* TASK: 9.4 - event handler handleMetaLogin */}
         <button className={styles.oauthButton} onClick={handleMetaLogin}>
           <img src={metaIcon} alt="meta icon" />
           <span>Login with Meta</span>

@@ -13,24 +13,40 @@ const Layout = ({ children }) => {
       <header className={styles.header}>
         <ul className={styles.navlinks}>
           <li className={styles.navlink} key="home">
-            <a href="/" onClick={() => onLinkClick("/")}>
+            {/* TASK: 9.4 - event handler onLinkClick */}
+            <a href="/" onClick={onLinkClick}>
               Home
             </a>
           </li>
           <li className={styles.navlink} key="products">
-            <a href="/products" onClick={() => onLinkClick("/products")}>
+            {/* TASK: 9.4 - event handler onLinkClick */}
+            <a href="/products" onClick={onLinkClick}>
               Products
             </a>
           </li>
+          <li className={styles.navlink} key="orders">
+            {/* TASK: 9.4 - event handler onLinkClick */}
+            <a href="/orders" onClick={onLinkClick}>
+              Orders
+            </a>
+          </li>
+          <li className={styles.navlink} key="users">
+            {/* TASK: 9.4 - event handler onLinkClick */}
+            <a href="/users" onClick={onLinkClick}>
+              Users
+            </a>
+          </li>
           {!isLoggedIn ? (
+            /* TASK: 9.4 - event handler onLinkClick */
             <li className={styles.navlink} key="login">
-              <a href="/login" onClick={() => onLinkClick("/login")}>
+              <a href="/login" onClick={onLinkClick}>
                 Login
               </a>
             </li>
           ) : null}
           {isLoggedIn ? (
             <li className={styles.navlink} key="logout">
+              {/* TASK: 9.4 - event handler logout */}
               <a href="#" onClick={logout}>
                 Logout
               </a>
