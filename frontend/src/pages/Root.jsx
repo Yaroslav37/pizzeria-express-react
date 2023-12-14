@@ -4,12 +4,17 @@ import Login from "./Login";
 import Products from "./Products";
 import Auth from "./Auth";
 import Home from "./Home";
+import Orders from "./Orders";
 
 const Root = () => {
   const { currentPath } = useContext(RouterContext);
 
   if (currentPath.match(/^\/auth/)) {
     return <Auth />;
+  }
+
+  if (currentPath === "/orders") {
+    return <Orders />;
   }
 
   if (currentPath === "/login") {

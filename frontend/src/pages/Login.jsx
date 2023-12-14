@@ -9,10 +9,10 @@ import metaIcon from "../icons/meta.png";
 import { UserContext } from "../contexts/UserContext";
 import { RouterContext } from "../lib/Router";
 
-// TASK: 2. Login UI
-// TASK: 9.1 - Functional component
+// TASK 2. Login UI
+// TASK 9.1 - Functional component
 function Login() {
-  // TASK: 9.5, 9.6 - Work with state and one hook
+  // TASK 9.5, 9.6 - Work with state and one hook
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -37,7 +37,7 @@ function Login() {
     setError(null);
   };
 
-  // TASK: 11 - Frontend Validation
+  // TASK 11 - Frontend Validation
   const validateForm = useCallback((email, password) => {
     if (!email) {
       setError("Email is required");

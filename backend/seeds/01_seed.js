@@ -1,4 +1,4 @@
-// TASK 5: Database seeding
+// TASK 5 Database seeding
 exports.seed = async function (knex) {
   function products_seed() {
     return knex("products")

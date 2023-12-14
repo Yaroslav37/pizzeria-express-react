@@ -1,4 +1,4 @@
-// TASK: 1. Define 4 models
+// TASK 1. Define 4 models
 
 exports.up = function (knex) {
   return knex.schema.createTable("users", function (table) {

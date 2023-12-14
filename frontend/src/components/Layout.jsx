@@ -24,18 +24,22 @@ const Layout = ({ children }) => {
               Products
             </a>
           </li>
-          <li className={styles.navlink} key="orders">
-            {/* TASK: 9.4 - event handler onLinkClick */}
-            <a href="/orders" onClick={onLinkClick}>
-              Orders
-            </a>
-          </li>
-          <li className={styles.navlink} key="users">
-            {/* TASK: 9.4 - event handler onLinkClick */}
-            <a href="/users" onClick={onLinkClick}>
-              Users
-            </a>
-          </li>
+          {isLoggedIn ? (
+            <li className={styles.navlink} key="orders">
+              {/* TASK: 9.4 - event handler onLinkClick */}
+              <a href="/orders" onClick={onLinkClick}>
+                Orders
+              </a>
+            </li>
+          ) : null}
+          {isLoggedIn ? (
+            <li className={styles.navlink} key="users">
+              {/* TASK: 9.4 - event handler onLinkClick */}
+              <a href="/users" onClick={onLinkClick}>
+                Users
+              </a>
+            </li>
+          ) : null}
           {!isLoggedIn ? (
             /* TASK: 9.4 - event handler onLinkClick */
             <li className={styles.navlink} key="login">
@@ -54,7 +58,7 @@ const Layout = ({ children }) => {
           ) : null}
         </ul>
         {isLoggedIn && name ? (
-          <span className={styles.userName}>Hi, {name}</span>
+          <span className={styles.userName}>Hi, {name}. </span>
         ) : null}
       </header>
       <section className={styles.pageContainer}>{children}</section>

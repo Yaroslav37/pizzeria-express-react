@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const ProductsService = require("../services/ProductsService");
 
+// TASK 4. Search, read, sort
 router.get("/", async (req, res) => {
   const search = req.query.search;
   const sort = req.query.sort;

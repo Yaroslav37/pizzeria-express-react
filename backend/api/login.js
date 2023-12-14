@@ -3,13 +3,13 @@ const createJwtToken = require("../lib/jwt");
 const router = express.Router();
 const UserService = require("../services/UsersService");
 
-// TASK: 2. Login/password
+// TASK 2. Login/password
 router.post("/", async (req, res) => {
   const { email, password } = req.body;
 
   const user = await UserService.getByEmail(email);
 
-  // TASK: 11 - Backend validation
+  // TASK 11 - Backend validation
   if (!user) {
     return res.status(401).json({ error: "Invalid credentials" });
   }

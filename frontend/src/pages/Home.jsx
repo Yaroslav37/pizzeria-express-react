@@ -1,6 +1,7 @@
 import { Component } from "react";
 import axios from "axios";
 import styles from "./Home.module.css";
+import Weather from "../components/Weather";
 
 const MINSK_LOCATION = {
   latitude: 53.9006,
@@ -57,19 +58,19 @@ class Home extends Component {
 
     return (
       <div>
+        {/* TASK 7: Display timezone */}
+        <p>
+          Today is {new Date().toLocaleDateString()} and your current timezone
+          is {Intl.DateTimeFormat().resolvedOptions().timeZone}.
+        </p>
         <h1>3rd party API</h1>
         <h2>Weather</h2>
-        <div className={styles.weatherContainer}>
-          <div>Location: Minsk</div>
-          <div>
-            Temperature: {this.state.weatherData.current.temperature_2m}{" "}
-            {this.state.weatherData.current_units.temperature_2m}
-          </div>
-          <div>
-            Wind speed: {this.state.weatherData.current.wind_speed_10m}{" "}
-            {this.state.weatherData.current_units.wind_speed_10m}
-          </div>
-        </div>
+        <Weather
+          temperature={this.state.weatherData.current.temperature_2m}
+          temperatureUnits={this.state.weatherData.current_units.temperature_2m}
+          windSpeed={this.state.weatherData.current.wind_speed_10m}
+          windSpeedUnits={this.state.weatherData.current_units.wind_speed_10m}
+        />
         <h2>Currency</h2>
         <table className={styles.table}>
           <thead>

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import styles from "./Products.module.css";
 import apiClient from "../lib/apiClient";
 
+// TASK 8. Catalog
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);

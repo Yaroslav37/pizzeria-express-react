@@ -2,6 +2,7 @@ import { createContext, useState, useCallback, useContext } from "react";
 
 const RouterContext = createContext();
 
+// TASK 8. Router
 const RouterProvider = ({ children }) => {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
 
