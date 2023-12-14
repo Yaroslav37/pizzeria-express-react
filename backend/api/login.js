@@ -1,11 +1,12 @@
 const express = require("express");
-const { use } = require("passport");
+const createJwtToken = require("../lib/jwt");
 const router = express.Router();
+const UserService = require("../services/UsersService");
 
 router.post("/", async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await UsersService.getByEmail(email);
+  const user = await UserService.getByEmail(email);
 
   if (!user) {
     return res.status(401).json({ error: "Invalid credentials" });
@@ -15,6 +16,7 @@ router.post("/", async (req, res) => {
     return res.status(401).json({ error: "Invalid credentials" });
   }
 
-  const product = await ProductsService.create(name, price, description, image);
-  res.status(201).json(product);
+  return res.status(200).json({ jwt: createJwtToken(user) });
 });
+
+module.exports = router;

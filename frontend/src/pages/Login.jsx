@@ -1,5 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import apiClient from "../lib/apiClient";
 
 import styles from "./Login.module.css";
 
@@ -11,8 +12,9 @@ import { RouterContext } from "../lib/Router";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, updateJwtToken } = useContext(UserContext);
   const { onNavigate } = useContext(RouterContext);
 
   useEffect(() => {
@@ -24,16 +26,56 @@ function Login() {
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
+    setError(null);
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+    setError(null);
   };
+
+  const validateForm = useCallback((email, password) => {
+    if (!email) {
+      setError("Email is required");
+      return false;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError("Email is invalid");
+      return false;
+    }
+    if (!password) {
+      setError("Password is required");
+      return false;
+    }
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long");
+      return false;
+    }
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     setLoading(true);
+
+    if (validateForm(email, password) === false) {
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const { data } = await apiClient.login({ email, password });
+      updateJwtToken(data.jwt);
+      toast.success("You are now logged in!");
+      onNavigate("/");
+    } catch (e) {
+      const response = e.response;
+      const { error } = response.data;
+      setError(error);
+    }
+    setLoading(false);
+    // if (response)
 
     // const response = await fetch("/api/login", {
     //   method: "POST",
@@ -67,7 +109,7 @@ function Login() {
         <label>
           Email:
           <input
-            type="text"
+            type="email"
             name="email"
             className={styles.input}
             onChange={handleEmailChange}
@@ -87,6 +129,7 @@ function Login() {
         <button type="submit" className={styles.button}>
           Login
         </button>
+        {error ? <div className={styles.error}>{error}</div> : null}
       </form>
       <div className={styles.oauthContainer}>
         <button className={styles.oauthButton} onClick={handleGoogleLogin}>

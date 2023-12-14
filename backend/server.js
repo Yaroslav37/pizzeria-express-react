@@ -1,14 +1,15 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 // const authRoutes = require('./src/AuthRoutes');
+const createJwtToken = require("./lib/jwt");
 
 const cors = require("cors");
 const passport = require("passport");
 const FacebookStrategy = require("passport-facebook").Strategy;
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const jwt = require("jsonwebtoken");
 
 const productsRouter = require("./api/products");
+const loginRouter = require("./api/login");
 
 const UsersService = require("./services/UsersService");
 
@@ -59,10 +60,7 @@ app.use(clientErrorHandler);
 app.use(errorHandler);
 
 app.use("/products", productsRouter);
-
-app.listen(port, () => {
-  console.log(`Сервер запущен на порту ${port}`);
-});
+app.use("/login", loginRouter);
 
 passport.use(
   new FacebookStrategy(
@@ -77,13 +75,7 @@ passport.use(
         profile.id,
         profile
       );
-      const userData = {
-        id: user.id,
-        // email: profile.emails[0].value,
-        name: user.name,
-        role: user.role,
-      };
-      done(null, jwt.sign(userData, process.env.JWT_SECRET));
+      done(null, createJwtToken(user));
     }
   )
 );
@@ -97,12 +89,7 @@ passport.use(
     },
     async function (_accessToken, _refreshToken, profile, done) {
       const user = await UsersService.getByGoogleOrCreate(profile.id, profile);
-      const userData = {
-        id: user.id,
-        name: user.name,
-        role: user.role,
-      };
-      done(null, jwt.sign(userData, process.env.JWT_SECRET));
+      done(null, createJwtToken(user));
     }
   )
 );
@@ -129,3 +116,7 @@ app.get(
     res.redirect(`${process.env.FRONTEND_URL}/auth?jwt=${req.user}`);
   }
 );
+
+app.listen(port, () => {
+  console.log(`Сервер запущен на порту ${port}`);
+});

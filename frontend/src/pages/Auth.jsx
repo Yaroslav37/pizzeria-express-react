@@ -2,6 +2,7 @@ import { useEffect, useContext } from "react";
 import { ReactComponent as Spinner } from "../icons/spinner.svg";
 import { UserContext } from "../contexts/UserContext";
 import { RouterContext } from "../lib/Router";
+import { toast } from "react-toastify";
 
 const Auth = () => {
   const { isLoggedIn, updateJwtToken } = useContext(UserContext);
@@ -11,11 +12,14 @@ const Auth = () => {
     if (isLoggedIn) {
       onNavigate("/");
     } else {
-      console.log({ isLoggedIn });
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const jwt = urlParams.get("jwt");
-      updateJwtToken(jwt);
+      if (jwt) {
+        updateJwtToken(jwt);
+        toast.success("You are now logged in!");
+        onNavigate("/");
+      }
     }
   }, [isLoggedIn, onNavigate, updateJwtToken]);
 

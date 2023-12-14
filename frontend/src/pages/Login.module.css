@@ -47,3 +47,10 @@
   display: flex;
   justify-content: space-between;
 }
+
+.error {
+  background: #f53b3b;
+  color: white;
+  margin-top: 0.5rem;
+  padding: 1rem;
+}
