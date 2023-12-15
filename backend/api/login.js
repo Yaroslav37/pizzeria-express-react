@@ -1,5 +1,5 @@
 const express = require("express");
-const createJwtToken = require("../lib/jwt");
+const { createJwtToken } = require("../lib/jwt");
 const router = express.Router();
 const UserService = require("../services/UsersService");
 

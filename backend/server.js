@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const createJwtToken = require("./lib/jwt");
+const { createJwtToken, verifyToken } = require("./lib/jwt");
 const jwt = require("jsonwebtoken");
 
 const cors = require("cors");
@@ -44,25 +44,6 @@ function errorHandler(err, req, res, next) {
   res.status(500);
   res.render("error", { error: err });
 }
-
-// TASK 12. Block unauthenticated users
-const verifyToken = (req, res, next) => {
-  const bearerHeader = req.headers["authorization"];
-  if (typeof bearerHeader !== "undefined") {
-    const bearer = bearerHeader.split(" ");
-    const bearerToken = bearer[1];
-    jwt.verify(bearerToken, process.env.JWT_SECRET, (err, data) => {
-      if (err) {
-        res.status(403).json({ error: "Forbidden" });
-      } else {
-        req.userData = data;
-        next();
-      }
-    });
-  } else {
-    res.status(403).json({ error: "Forbidden" });
-  }
-};
 
 app.use(cors(corsOptions));
 app.use(passport.initialize());

@@ -1,13 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import styles from "./Products.module.css";
 import apiClient from "../lib/apiClient";
+import { RouterContext } from "../lib/Router";
+import { UserContext } from "../contexts/UserContext";
 
 // TASK 8. Catalog
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+<<<<<<< Updated upstream
   const [sort, setSort] = useState("id__asc");
+=======
+  const [sort, setSort] = useState("id_asc");
+  const { onLinkClick } = useContext(RouterContext);
+  const { isLoggedIn } = useContext(UserContext);
+>>>>>>> Stashed changes
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -71,6 +79,15 @@ const Products = () => {
             Search
           </button>
         </form>
+        {isLoggedIn ? (
+          <a
+            href="/products/new"
+            className={styles.updateButton}
+            onClick={onLinkClick}
+          >
+            Create
+          </a>
+        ) : null}
       </div>
       <div className={styles.gridContainer}>
         {products.map((product) => (
@@ -87,8 +104,9 @@ const Products = () => {
               <a
                 className={styles.productButton}
                 href={`/products/${product.id}`}
+                onClick={onLinkClick}
               >
-                Купить
+                Детали
               </a>
             </div>
           </div>
