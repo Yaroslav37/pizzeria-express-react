@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { ReactComponent as Spinner } from "../icons/spinner.svg";
 import axios from "axios";
 import styles from "./Home.module.css";
 import Weather from "../components/Weather";
@@ -53,7 +54,7 @@ class Home extends Component {
     }
 
     if (this.state.currencyLoaded === false) {
-      return <p>Currency is Loading...</p>;
+      return <p>Currency is Loading... <Spinner /></p>;
     }
 
     return (

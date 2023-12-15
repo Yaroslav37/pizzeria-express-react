@@ -5,6 +5,7 @@ import Products from "./Products";
 import Auth from "./Auth";
 import Home from "./Home";
 import Orders from "./Orders";
+import Users from "./Users";
 
 const Root = () => {
   const { currentPath } = useContext(RouterContext);
@@ -23,6 +24,10 @@ const Root = () => {
 
   if (currentPath === "/products") {
     return <Products />;
+  }
+
+  if (currentPath === "/users") {
+    return <Users />;
   }
 
   if (currentPath === "/") {

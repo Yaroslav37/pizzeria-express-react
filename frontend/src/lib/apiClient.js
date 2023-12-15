@@ -23,10 +23,20 @@ const orders = async () => {
   return response;
 };
 
+const users = async () => {
+  const response = await apiClient.get("/users", {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+  return response;
+};
+
 const client = {
   login,
   products,
   orders,
+  users,
 };
 
 export default client;

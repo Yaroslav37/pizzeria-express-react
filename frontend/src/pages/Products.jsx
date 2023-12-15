@@ -7,7 +7,7 @@ const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [sort, setSort] = useState("id_asc");
+  const [sort, setSort] = useState("id__asc");
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -51,19 +51,19 @@ const Products = () => {
             onChange={(e) => setSort(e.target.value)}
             value={sort}
           >
-            <option value="id__asc" selected={sort === "id_asc"}>
+            <option value="id__asc" selected={sort === "id__asc"}>
               Sort by...
             </option>
-            <option value="price__asc" selected={sort === "price_asc"}>
+            <option value="price__asc" selected={sort === "price__asc"}>
               Sort by price ASC
             </option>
-            <option value="price__desc" selected={sort === "price_desc"}>
+            <option value="price__desc" selected={sort === "price__desc"}>
               Sort by price DESC
             </option>
-            <option value="product_name__asc" selected={sort === "name_asc"}>
+            <option value="product_name__asc" selected={sort === "product_name__asc"}>
               Sort by name ASC
             </option>
-            <option value="product_name__desc" selected={sort === "name_desc"}>
+            <option value="product_name__desc" selected={sort === "product_name__desc"}>
               Sort by name DESC
             </option>
           </select>
